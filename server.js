@@ -11,7 +11,7 @@ app.set('view engine', 'pug');
 app.set('views', 'static/views');
 
 app.get('/', function(req, res) {
-    let result = req.query.q;
+    //let result = req.query.q;
     res.render('web');
 });
     request ({
@@ -26,11 +26,12 @@ app.get('/', function(req, res) {
         let arr = body.response.docs;
         arr.forEach(function(article){
             console.log(article.headline.main);
+            articleModule.addArticleHeadlines(article.headline.main);
         });
         //console.log(body.response.docs[0].headline.main);
 });
 
-
+console.log(articleModule.getArticleHeadlines());
 const server = app.listen(3000, function() {
 	console.log(`Server started on port ${server.address().port}`);
 });
