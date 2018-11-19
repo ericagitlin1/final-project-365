@@ -15,19 +15,21 @@ app.get('/', function(req, res) {
 });
     request ({
     method: 'GET',
-    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${result}`,
+    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=wildfires`,
     qs: {
         'api-key': "f0a4f818f6884462aba9a8b7f18c3c42"
       },
-    json: true
-},
-function(error,response,body){
-        console.log(body);
+    json: true},
 
+    function(error,response,body){
+        let arr = body.response.docs;
+        arr.forEach(function(article){
+            console.log(article.headline.main);
+        });
+        //console.log(body.response.docs[0].headline.main);
 });
 
 
 const server = app.listen(3000, function() {
 	console.log(`Server started on port ${server.address().port}`);
 });
-
