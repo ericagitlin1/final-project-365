@@ -8,7 +8,7 @@ const express = require('express'),
 app.use(express.static('resources'));
 
 app.set('view engine', 'pug');
-app.set('views', 'static/views');
+app.set('views', 'views');
 
 app.get('/', function(req, res) {
     //let result = req.query.q;
@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
         arr.forEach(function(article){
             articleModule.addArticleHeadlines(article.headline.main);  
         });
-        console.log(articleModule.getArticleHeadlines());
+        //console.log(articleModule.getArticleHeadlines());
 });
 
 
