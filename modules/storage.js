@@ -6,9 +6,14 @@ const articleHeadlines  = [];
 
 let searchItem  = "";
 
+obj.setSearchItem = function(text){
+    //Store input from the Search Box
+    searchItem = text;
+}
+
 obj.getSearchItem  = function(){
     //Return the Input from the Search Box
-    return document.getElementById('SearchBox').value;
+    return searchItem;
 }
 
 obj.addArticleHeadlines = function(item){
