@@ -2,7 +2,8 @@
 
 const express = require('express'),
     app = express(),
-    request = require('request');
+    request = require('request'),
+    articleModule = require('./modules/storage.js');
 
 app.use(express.static('resources'));
 
