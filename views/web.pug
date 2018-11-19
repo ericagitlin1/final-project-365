@@ -1,0 +1,15 @@
+doctype
+html
+    head
+        meta(charset="UTF-8")
+        title Search Articles
+        link(href = '/resources/css/web.css')
+    body
+        h1 Search a New York Times Article!
+        .SearchBar
+            form(action = "/search" method = "get")
+                input(type="text" id="SearchBox" placeholder="Input Text Here")
+                button#SearchButton Search
+    
+    script(src='/js/web.js')
+
