@@ -2,23 +2,28 @@
 
 let obj = {};
 
-const articles  = [];
+const articleHeadlines  = [];
 
 let searchItem  = "";
 
+obj.setSearchItem = function(text){
+    //Store input from the Search Box
+    searchItem = text;
+}
+
 obj.getSearchItem  = function(){
     //Return the Input from the Search Box
-    return document.getElementById('SearchBox').value;
+    return searchItem;
 }
 
-obj.addArticles = function(item){
-    //Add top 10 articles
-    articles.push(item);
+obj.addArticleHeadlines = function(item){
+    //Add all available article headlines
+    articleHeadlines.push(item);
 }
 
-obj.getArticles = function(){
-    //Return contents of the articles Array
-    return articles;
+obj.getArticleHeadlines = function(){
+    //Return the headlines stored in the array
+    return articleHeadlines;
 }
 
 module.exports = obj;
