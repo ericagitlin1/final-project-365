@@ -11,13 +11,12 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.get('/', function(req, res) {
-    //let result = req.query.q;
+    let result = req.query.term;
     res.render('web');
-}
-);
+
     request ({
     method: 'GET',
-    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=hawley`,
+    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${result}`,
     qs: {
         'api-key': "f0a4f818f6884462aba9a8b7f18c3c42"
       },
@@ -28,13 +27,14 @@ app.get('/', function(req, res) {
         arr.forEach(function(article){
             articleModule.addArticleHeadlines(article.headline.main);  
         });
-        console.log(articleModule.getArticleHeadlines());
+        //console.log(articleModule.getArticleHeadlines());
+    });
 });
 
 app.get('/search', function(req, res) {
-    res.render('search');
     const list = articleModule.getArticleHeadlines();
     res.json(list);
+    res.render('search');
 
 });
 
