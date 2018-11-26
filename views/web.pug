@@ -10,5 +10,18 @@ html
             form(action = "/search" method = "get")
                 input(type="text" id="SearchBox" placeholder="Input Text Here")
                 button#SearchButton Search
+
+            h2 Search results:
+
+            #ArticleList 
+                unless articles.length === 0   
+                    ul
+                        each article in articles
+                            li #{article}
+                else
+                    div No articles to display!
+
+    script(src='/js/refresh.js')
+    //script(src='/js/web.js')
     
-    script(src='/js/web.js')
+    

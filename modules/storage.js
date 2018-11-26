@@ -2,7 +2,7 @@
 
 let obj = {};
 
-const articleHeadlines  = [];
+let articleHeadlines  = [];
 
 let searchItem  = "";
 
@@ -24,6 +24,11 @@ obj.addArticleHeadlines = function(item){
 obj.getArticleHeadlines = function(){
     //Return the headlines stored in the array
     return articleHeadlines;
+}
+
+obj.clearArticleHeadlines = function(){
+    //Clear the array storing article headlines
+    articleHeadlines = [];
 }
 
 module.exports = obj;

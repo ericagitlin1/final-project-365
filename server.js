@@ -11,9 +11,14 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.get('/', function(req, res) {
-    let result = req.query.term;
-    res.render('web');
+    res.render('web',{
+        articles : articleModule.getArticleHeadlines()
+    });
+});
 
+app.get('/search', function(req, res) {
+
+    let result = req.query.term;
     request ({
     method: 'GET',
     url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${result}`,
@@ -27,15 +32,18 @@ app.get('/', function(req, res) {
         arr.forEach(function(article){
             articleModule.addArticleHeadlines(article.headline.main);  
         });
-        //console.log(articleModule.getArticleHeadlines());
     });
+
+    const articleList = articleModule.getArticleHeadlines();
+    res.json(articleList);
+
+    articleModule.clearArticleHeadlines();
 });
 
-app.get('/search', function(req, res) {
+
+app.get('/articleList', function(req, res) {
     const list = articleModule.getArticleHeadlines();
     res.json(list);
-    res.render('search');
-
 });
 
 

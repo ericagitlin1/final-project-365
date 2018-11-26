@@ -2,12 +2,12 @@
 
 /* A simple Ajax example */
 const ajax = new XMLHttpRequest();
-ajax.open('GET', 'https://api.nytimes.com/svc/search/v2/articlesearch.json');
+ajax.open('GET', '/articlelist');
 
 ajax.addEventListener('load', function() {
 	console.log('Finished');
-	console.log(typeof ajax.response);
-	const article = JSON.parse(ajax.response.docs);
+	console.log(ajax.response);
+	/*const article = JSON.parse(ajax.response.docs);
 
 	const span = document.querySelector('#list'),
 		text = document.createTextNode(article.headline.main);
