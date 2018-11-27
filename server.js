@@ -12,22 +12,25 @@ app.set('views', 'views');
 
 app.get('/', function(req, res) {
     res.render('web',{
-        articles : articleModule.getArticleHeadlines()
+        articles: articleModule.getArticleHeadlines()
     });
 });
 
 app.get('/search', function(req, res) {
-
     let result = req.query.term;
-    request ({
+    request.get ({
     method: 'GET',
-    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${result}`,
+    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?term=${result}`,
     qs: {
-        'api-key': "f0a4f818f6884462aba9a8b7f18c3c42"
+        'api-key': "f0a4f818f6884462aba9a8b7f18c3c42",
+        'q': `${result}`
       },
     json: true},
 
     function(error,response,body){
+         res.render('search',{
+            articles: articleModule.getArticleHeadlines()
+        });
         let arr = body.response.docs;
         arr.forEach(function(article){
             articleModule.addArticleHeadlines(article.headline.main);  
@@ -44,7 +47,7 @@ app.get('/search', function(req, res) {
 app.get('/articleList', function(req, res) {
     const list = articleModule.getArticleHeadlines();
     res.json(list);
-});
+})
 
 
 const server = app.listen(3000, function() {

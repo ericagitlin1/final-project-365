@@ -5,7 +5,14 @@ html
         title Search results
     body
         h2 results for your search #[span#result]
-            ul(id='list')
-                li
+
+        #ArticleList 
+            unless articles.length === 0   
+                ul
+                    each article in articles
+                        li #{articlelist}
+            else
+                div No articles to display!
        
-    script(src='/js/web_ajax.js')
+    script(src='/js/search_ajax.js')
+    script(scr='/js/search_refresh.js')
