@@ -1,18 +1,19 @@
-doctype
-html
-    head
-        meta(charset='UTC-8')
-        title Search results
-    body
-        h2 results for your search #[span#result]
+extends navbar
+    doctype
+    html
+        head
+            meta(charset='UTC-8')
+            title Search results
+        body
+            h2 results for your search #[span#result]
 
-        #ArticleList 
-            unless articles.length === 0   
-                ul
-                    each article in articles
-                        li #{article}
-            else
-                div No articles to display!
-       
-    script(src='/js/search_ajax.js')
-    script(scr='/js/search_refresh.js')
+            #ArticleList 
+                unless articles.length === 0   
+                    ul
+                        each article in articles
+                            li #{article}
+                else
+                    div No articles to display!
+        
+        script(src='/js/search_ajax.js')
+        script(scr='/js/search_refresh.js')

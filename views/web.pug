@@ -1,28 +1,30 @@
-doctype
-html
-    head
-        meta(charset="UTF-8")
-        title Search Articles
-        link(href = '/resources/css/web.css')
-    body
-        h1 Search a New York Times Article!
-        .SearchBar
-            form(action = "/search" method = "get")
-                input(type="text" id="SearchBox" placeholder="Input Text Here")
-                input(id="term" name="term" type="hidden" value="https://api.nytimes.com/svc/search/v2/articlesearch.json?q=&api-key=f0a4f818f6884462aba9a8b7f18c3c42")
-                button#SearchButton Search
+extends navbar
+block main-content
+    doctype
+    html
+        head
+            meta(charset="UTF-8")
+            title Search Articles
+            link(href = '/resources/css/web.css')
+        body
+            h1 Search a New York Times Article!
+            .SearchBar
+                form(action = "/search" method = "get")
+                    input(type="text" id="SearchBox" placeholder="Input Text Here")
+                    input(id="term" name="term" type="hidden" value="https://api.nytimes.com/svc/search/v2/articlesearch.json?q=&api-key=f0a4f818f6884462aba9a8b7f18c3c42")
+                    button#SearchButton Search
 
-            h2 Search results:
+                h2 Search results:
 
-            #ArticleList 
-                unless articles.length === 0   
-                    ul
-                        each article in articles
-                            li #{article}
-                else
-                    div No articles to display!
+                #ArticleList 
+                    unless articles.length === 0   
+                        ul
+                            each article in articles
+                                li #{article}
+                    else
+                        div No articles to display!
 
-    script(src='/js/refresh.js')
-    script(src='/js/web.js')
-    
-    
+        //script(src='/js/refresh.js')
+        script(src='/js/web.js')    
+
+
