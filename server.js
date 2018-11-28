@@ -19,7 +19,7 @@ app.use(
 
 app.get('/', function(req, res) {
     res.render('web',{
-            articles: articleModule.getTopStories()
+            articles: articleModule.getArticleHeadlines()
     });
 
 });
