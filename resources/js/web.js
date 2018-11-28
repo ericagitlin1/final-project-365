@@ -8,7 +8,7 @@ document.getElementById("SearchButton").onclick = function(){
 
     let articles = info.response.docs;
     for(let i = 0;i<articles.length;i++) {
-        console.log(articles[i].headline.snippet)
+        console.log(articles[i].headline.main)
     }
     return true;
     

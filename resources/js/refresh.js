@@ -3,7 +3,7 @@
 const refreshMainPage = function() {
     const xhrGet = new XMLHttpRequest();
 
-    xhrGet.open('GET', '/articleList');
+    xhrGet.open('GET', '/storylist');
      
 	xhrGet.addEventListener('load', function() {
 		console.log('refreshed!');
