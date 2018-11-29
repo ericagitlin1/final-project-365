@@ -2,33 +2,22 @@
 
 let obj = {};
 
-let articleHeadlines  = [];
+let articleInfo  = [];
 
-let searchItem  = "";
 
-obj.setSearchItem = function(text){
-    //Store input from the Search Box
-    searchItem = text;
+obj.addArticleInfo = function(item){
+    //Add all available article info
+    articleInfo.push(item);
 }
 
-obj.getSearchItem  = function(){
-    //Return the Input from the Search Box
-    return searchItem;
+obj.getArticleInfo = function(){
+    //Return the info stored in the array
+    return articleInfo;
 }
 
-obj.addArticleHeadlines = function(item){
-    //Add all available article headlines
-    articleHeadlines.push(item);
-}
-
-obj.getArticleHeadlines = function(){
-    //Return the headlines stored in the array
-    return articleHeadlines;
-}
-
-obj.clearArticleHeadlines = function(){
-    //Clear the array storing article headlines
-    articleHeadlines = [];
+obj.clearArticleInfo = function(){
+    //Clear the array storing article info
+    articleInfo = [];
 }
 
 module.exports = obj;
