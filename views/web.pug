@@ -15,15 +15,7 @@ block main-content
                     button#SearchButton Search
 
                 h2 Search results:
-
-                #ArticleList 
-                    unless articles.length === 0   
-                        ul
-                            each article in articles
-                                li #{article}
-                    else
-                        div No articles to display!
-
+                table#ArticleTable
         script(src='/js/submit_article.js')    
 
 
