@@ -6,37 +6,34 @@ const submitArticle = function(term) {
 	xhrPost.setRequestHeader('Content-Type', 'application/json');
 
 	xhrPost.addEventListener('load', function() {
-		console.log('Finished!');
-		console.log(xhrPost.response);
-
+		
 		const articles = JSON.parse(xhrPost.response);
 
 		if (articles.length > 0) {
-			const parentDiv = document.querySelector('#ArticleList');
-			while (parentDiv.hasChildNodes()) {
-				parentDiv.removeChild(parentDiv.firstChild);
+			const table = document.getElementById('ArticleTable');
+			while (table.hasChildNodes()) {
+				table.removeChild(table.firstChild);
 			}
-			const ul = document.createElement('ul');
 			articles.forEach(function(article) {
-				const li = document.createElement('li'),
+				const tr = document.createElement('tr'),
+					tr2 = document.createElement('tr'),
 					a = document.createElement('a'),
-                    text = document.createTextNode(article);
-                    
+					text = document.createTextNode(article.headline),
+					snippet = document.createTextNode(article.snippet);
+
+				a.href = article.web_url; 
 				a.appendChild(text);
-				li.appendChild(a);
-				ul.appendChild(li);
+				tr.appendChild(a);
+				tr2.appendChild(snippet);	
+				table.appendChild(tr);
+				table.appendChild(tr2);
 			});
-			parentDiv.appendChild(ul);
+			
 		}
     });
 
 	xhrPost.addEventListener('error', function() {
 		console.error('Error occured :(');
-	});
-
-	xhrPost.timeout = 3 * 1000;
-	xhrPost.addEventListener('timeout', function() {
-		console.warn('Timeout');
 	});
 
 	xhrPost.send(JSON.stringify({
@@ -48,7 +45,6 @@ document.getElementById("SearchButton").addEventListener('click', function(evt){
 
 	evt.preventDefault();
     let info = document.getElementById('SearchBox').value;
-	console.log(info);
 	document.getElementById('SearchBox').value = "";
 	submitArticle(info);
 
