@@ -86,7 +86,7 @@ app.post("/login", passport.authenticate("local",{
 app.get('/home', function(req, res) {
     //res.send("Thanks! you've been logged in");
     res.render('web',{
-        articles: articleModule.getArticleHeadlines()
+        articles: articleModule.getArticleInfo()
 });
 
 })
@@ -95,7 +95,7 @@ app.post('/search', function(req, res) {
     let result = req.body.article || 'apple';
     request ({
     method: 'GET',
-    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=`,
+    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?`,
     qs: {
         'api-key': "f0a4f818f6884462aba9a8b7f18c3c42",
         'q': `${result}`
@@ -105,11 +105,19 @@ app.post('/search', function(req, res) {
     function(error,response,body){
         let arr = body.response.docs;
         arr.forEach(function(article){
-            articleModule.addArticleHeadlines(article.headline.main);  
+            //If statement to ensure only Articles are added to the Module
+            if(article.keywords.length !== 0){
+                let articleObj = { 
+                    headline: article.headline.main,
+                    web_url: article.web_url,
+                    snippet: article.snippet
+                }
+                articleModule.addArticleInfo(articleObj);  
+            }
         });
-        const articleList = articleModule.getArticleHeadlines();
-        res.json(articleList);
-        articleModule.clearArticleHeadlines();  
+        const articleObj = articleModule.getArticleInfo();
+        res.json(articleObj);
+        articleModule.clearArticleInfo();  
     }); 
 });
 
