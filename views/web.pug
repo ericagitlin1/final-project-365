@@ -10,7 +10,7 @@ block main-content
             h1 Search a New York Times Article!
             .SearchBar
                 form(action = "/search" method = "get")
-                    input(type="text" id="SearchBox" placeholder="Input Text Here")
+                    input(type="Search" id="SearchBox" placeholder="Input Text Here")
                     input(id="term" name="term" type="hidden" value="https://api.nytimes.com/svc/search/v2/articlesearch.json?q=&api-key=f0a4f818f6884462aba9a8b7f18c3c42")
                     button#SearchButton Search
 

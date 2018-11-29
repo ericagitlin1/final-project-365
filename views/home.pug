@@ -1,0 +1,10 @@
+extends navbar
+
+block main-content
+    h1 Please login to see Articles!
+        if error
+            .alert.alert-danger=error
+        form(method="post", action="/login")
+            input(placeholder="Username", name="username")
+            input(type="password", placeholder="password", name="password")
+            button(type="submit") Login

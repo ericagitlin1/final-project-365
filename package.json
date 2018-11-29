@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/ericagitlin1/final-project-365#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.3",
     "request": "^2.88.0"
   }
