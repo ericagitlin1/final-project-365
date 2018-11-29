@@ -22,7 +22,7 @@ const express = require('express'),
 app.use(express.static('resources'));
 app.use(cookieParser());
 app.use(expressSession({
-    secret: "secret",
+    secret: "secretthatnoonewilleverknow",
     resave: false,
     saveUninitialized: false
 }));
