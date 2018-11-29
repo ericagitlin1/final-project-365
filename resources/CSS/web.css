@@ -1,3 +1,7 @@
 body {
-    
+    background-color: orange
 }
+#ArticleTable{
+    border: 2px solid #cccccc;
+    margin: 5px;
+    }
