@@ -69,8 +69,13 @@ app.use(
 		extended: true
 	})
 );
+app.get('/', function(req, res) {
+    console.log("Accessing this page!")
+    res.render('login');
 
-app.get('/', passport.authenticate('twitter'));
+});
+
+app.get('/twitter/login', passport.authenticate('twitter'));
 
 app.get('/twitter/return', passport.authenticate('twitter', {
     failureRedirect: "/"
@@ -84,10 +89,6 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 })
 
-app.get('/', function(req, res) {
-    res.render('login');
-
-});
 
 //app.post("/login", passport.authenticate("local",{
 	//failureRedirect: "/",
