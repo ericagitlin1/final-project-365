@@ -88,6 +88,10 @@ app.get('/home', function(req,res){
     res.render('home');
 })
 
+app.get('/search',function(req,res){
+    res.render('web');
+})
+
 app.post('/home', function(req, res) {
     //res.send("Thanks! you've been logged in");
     //let { section: home, results: results } = req.body;
