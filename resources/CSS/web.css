@@ -1,9 +1,19 @@
+html {
+    height:100%;
+    margin:0;
+}
+.navbar {
+    background-color: lightblue;
+}
 body {
-  /*background-image: url('');*/
-    background-color: rgb(158, 212, 243);
+    background-color: lightblue;
+    min-height: 100%;
+    margin: 0;
+
     
 }
 #ArticleTable{
     border: 2px solid #cccccc;
     margin: 5px;
     }
+

@@ -8,17 +8,13 @@ const express = require('express'),
     passport = require("passport"), //used for logins and sessions
 	cookieParser = require("cookie-parser"),//used for logins and sessions
 	expressSession = require("express-session"),//used for logins and sessions
-	LocalStrategy = require("passport-local").Strategy, //used for logins and sessions
-	objL = {          //obj used to fill out the login template to make it  the login page 
-		title: "Login",
-		bottomMessage: "Don't have an account? Click the register tab!",
-		homeTab: "login",
-		secondaryTab: "Register", 
-		submitButton: "Login",
-		homeTabPath: "/",
-		secondaryTabPath: "/home",
-		httpAction: "/login_attempt"
-	};
+    TwitterStrategy = require("passport-Twitter").Strategy,
+    BetterMemoryStore = require('session-memory-store');
+
+    let TWITTER_CONSUMER_KEY = "VU234SyhAAJW5EWZ19fKRcz2Q";
+    let TWITTER_CONSUMER_SECRET = "TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3";
+    let callbackURL = "https://localhost:3000/twitter/return";
+    
 
 app.use(express.static('resources'));
 app.use(cookieParser());
@@ -27,28 +23,34 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
+//let store = new BetterMemoryStore({expires: 60*60*1000, debug:true});
+
+//app.use(sess({
+    //name: 'JSESSION',
+    //secret: 'mysecretisVERYverysecret',
+    //store: store,
+    //resave: true,
+    //saveUninitialized: true,
+//}));
+
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy({usernameField: "username", passwordField: "password"},
-        function(username,password,done){
-            if(username !== password){
-                return done(null, false, {
-                        message: "Sorry, username or password not found"
-                });
-            }
-            return done(null, {
-                user: username
-            });
+passport.use(new TwitterStrategy({
+    consumerKey: TWITTER_CONSUMER_KEY, 
+    consumerSecret: TWITTER_CONSUMER_SECRET,
+    callbackURL: callbackURL
+},
+        function(token, tokenSecret, profile, done){
+            done(null, profile);
         })
 );
-passport.serializeUser(function(user,done){
-    done(null,user.user);
+passport.serializeUser(function(user, callback){
+    callback(null, user);
 });
-passport.deserializeUser(function(id,done){
-    done(null,{
-        user:id,
-    });
+passport.deserializeUser(function(object, callback){
+    callback(null, object);
 });
+
 
 let ensureAuthenticated = function(req, res, next) {
     if(req.isAuthenticated()) {
@@ -69,28 +71,36 @@ app.use(
 	})
 );
 
+app.get('twitter/login', passport.authenticate('twitter'));
+
+app.get('/twitter/return', passport.authenticate('twitter', {
+    failureRedirect: "/",
+    successRedirect: "/home"
+}),
+    function(req, res) {
+        res.redirect('/')
+    });
+
 app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 })
 
 app.get('/', function(req, res) {
-    res.render('login', objL);
+    res.render('login');
 
 });
 
-app.post("/login", passport.authenticate("local",{
-	failureRedirect: "/",
-	successRedirect: "/home"
-}));
+//app.post("/login", passport.authenticate("local",{
+	//failureRedirect: "/",
+	//successRedirect: "/home"
+//}));
 
-app.get('/home', function(req,res){
+app.get('/home', ensureAuthenticated, function(req,res){
     res.render('home');
 });
 
-app.post('/home', function(req, res) {
-    //res.send("Thanks! you've been logged in");
-    //let { section: home, results: results } = req.body;
+app.post('/home', ensureAuthenticated, function(req, res) {
     request({
         method: "GET",
         url: "https://api.nytimes.com/svc/topstories/v2/home.json?{format}",
@@ -119,11 +129,11 @@ app.post('/home', function(req, res) {
 
 });
 
-app.get('/search', function(req, res){
+app.get('/search', ensureAuthenticated, function(req, res){
     res.render('web');
 })
 
-app.post('/search', function(req, res) {
+app.post('/search', ensureAuthenticated, function(req, res) {
     let result = req.body.article || 'apple';
     request ({
     method: 'GET',
