@@ -1,5 +1,7 @@
 body {
-    background-color: orange
+    background-image: url('/resources/images/background');
+    background-color: orange;
+    
 }
 #ArticleTable{
     border: 2px solid #cccccc;

@@ -4,6 +4,7 @@ const express = require('express'),
     app = express(),
     request = require('request'),
     articleModule = require('./modules/storage.js'),
+    storyModule = require('./modules/storyList.js'),
     passport = require("passport"), //used for logins and sessions
 	cookieParser = require("cookie-parser"),//used for logins and sessions
 	expressSession = require("express-session"),//used for logins and sessions
@@ -83,13 +84,40 @@ app.post("/login", passport.authenticate("local",{
 	successRedirect: "/home"
 }));
 
-app.get('/home', function(req, res) {
-    //res.send("Thanks! you've been logged in");
-    res.render('web',{
-        articles: articleModule.getArticleInfo()
-});
-
+app.get('/home', function(req,res){
+    res.render('home');
 })
+
+app.post('/home', function(req, res) {
+    //res.send("Thanks! you've been logged in");
+    //let { section: home, results: results } = req.body;
+    request({
+        method: "GET",
+        url: "https://api.nytimes.com/svc/topstories/v2/home.json?{format}",
+        qs: {
+          'api-key': "f0a4f818f6884462aba9a8b7f18c3c42",
+          'results': 'results',
+          'title': 'title',
+          'abstract': 'abstract'
+        },
+      json: true}, 
+
+      function(err, response, body) {
+        for(let i=0; i<11;i++){
+            let x = body.results[i];
+            let storyObj = {
+                title: x.title,
+                abstract: x.abstract,
+                url: x.url
+            }
+            storyModule.addStories(storyObj);
+        }
+        const storyList = storyModule.getStories();
+        res.json(storyList);
+
+      });
+
+});
 
 app.post('/search', function(req, res) {
     let result = req.body.article || 'apple';
