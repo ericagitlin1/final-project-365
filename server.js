@@ -117,6 +117,7 @@ app.post('/home', function(req, res) {
             storyModule.addStories(storyObj);
         }
         const storyList = storyModule.getStories();
+        storyModule.clearStories();
         res.json(storyList);
 
       });

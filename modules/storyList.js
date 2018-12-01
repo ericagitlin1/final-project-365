@@ -12,4 +12,8 @@ obj.getStories = function() {
     return storyInfo;
 }
 
+obj.clearStories = function (){
+    //Clear the array storing Top Stories
+    storyInfo = [];
+}
 module.exports = obj;
