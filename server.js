@@ -9,11 +9,15 @@ const express = require('express'),
 	cookieParser = require("cookie-parser"),//used for logins and sessions
 	expressSession = require("express-session"),//used for logins and sessions
     TwitterStrategy = require("passport-twitter").Strategy,
-    BetterMemoryStore = require('session-memory-store');
+    Twit = require('twit');
 
-    let TWITTER_CONSUMER_KEY = "VU234SyhAAJW5EWZ19fKRcz2Q";
-    let TWITTER_CONSUMER_SECRET = "TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3";
-    let callbackURL = "http://localhost:3000/twitter/return";
+    //BetterMemoryStore = require('session-memory-store');
+
+    const TWITTER_CONSUMER_KEY = 'VU234SyhAAJW5EWZ19fKRcz2Q',
+        TWITTER_CONSUMER_SECRET = 'TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3',
+        ACCESS_TOKEN = '1068734433656799232-5yeUmRcv4kRXBRvsSgi5At7EowrnZA',
+        ACCESS_TOKEN_SECRET = '0pJu5Evld7bNN0lSxljeVouqGcr46Vy3nkvHNKjf5RRaC',
+        callbackURL = "http://localhost:3000/twitter/return";
     
 
 app.use(express.static('resources'));
@@ -61,6 +65,18 @@ let ensureAuthenticated = function(req, res, next) {
     }
 }
 
+let MakeATweet = new Twit({
+    consumer_key: TWITTER_CONSUMER_KEY, 
+    consumer_secret: TWITTER_CONSUMER_SECRET,
+    access_token: ACCESS_TOKEN,
+    access_token_secret: ACCESS_TOKEN_SECRET
+    }
+);
+
+MakeATweet.post('statuses/update', { status: 'This is another tweet' }, function(err, data, response) {
+  console.log(data)
+});
+
 app.set('view engine', 'pug');
 app.set('views', 'views');
 
@@ -72,6 +88,11 @@ app.use(
 );
 
 //app.get('/', passport.authenticate('twitter'));
+
+app.get('/', function(req, res) {
+    res.render('login');
+
+});
 
 app.get('/twitter/login', passport.authenticate('twitter'));
 
@@ -86,11 +107,6 @@ app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 })
-
-app.get('/', function(req, res) {
-    res.render('login');
-
-});
 
 //app.post("/login", passport.authenticate("local",{
 	//failureRedirect: "/",

@@ -26,6 +26,7 @@
     "passport-twitter": "^1.0.4",
     "pug": "^2.0.3",
     "request": "^2.88.0",
-    "session-memory-store": "^0.2.2"
+    "session-memory-store": "^0.2.2",
+    "twit": "^2.2.11"
   }
 }
