@@ -100,7 +100,8 @@ app.get('/home', ensureAuthenticated, function(req,res){
     res.render('home');
 });
 
-app.post('/home', ensureAuthenticated, function(req, res) {
+
+app.post('/home', function(req, res) {
     request({
         method: "GET",
         url: "https://api.nytimes.com/svc/topstories/v2/home.json?{format}",
@@ -123,6 +124,7 @@ app.post('/home', ensureAuthenticated, function(req, res) {
             storyModule.addStories(storyObj);
         }
         const storyList = storyModule.getStories();
+        storyModule.clearStories();
         res.json(storyList);
 
       });
