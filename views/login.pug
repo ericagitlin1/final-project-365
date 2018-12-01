@@ -7,14 +7,5 @@ html
         link(href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css", rel="stylesheet")
         link(href="/CSS/login.css", rel="stylesheet")
     body
-        h1(class='h1') Please login to see Articles!
-            if error
-                .alert.alert-danger=error
-            form(method="post", action="/login")
-                input(placeholder="Username", name="username")
-                input(type="password", placeholder="password", name="password")
-                button#submit(type="submit") Login
-
-
-                    
+        a(href='/twitter/login') Login Using Twitter!
 
