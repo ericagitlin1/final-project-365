@@ -1,6 +1,6 @@
 body {
-    background-image: url('/resources/images/background');
-    background-color: orange;
+  /*background-image: url('');*/
+    background-color: rgb(158, 212, 243);
     
 }
 #ArticleTable{

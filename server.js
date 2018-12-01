@@ -86,7 +86,7 @@ app.post("/login", passport.authenticate("local",{
 
 app.get('/home', function(req,res){
     res.render('home');
-})
+});
 
 app.post('/home', function(req, res) {
     //res.send("Thanks! you've been logged in");
@@ -118,6 +118,10 @@ app.post('/home', function(req, res) {
       });
 
 });
+
+app.get('/search', function(req, res){
+    res.render('web');
+})
 
 app.post('/search', function(req, res) {
     let result = req.body.article || 'apple';
