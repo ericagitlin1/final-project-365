@@ -71,7 +71,9 @@ app.use(
 	})
 );
 
-app.get('/', passport.authenticate('twitter'));
+//app.get('/', passport.authenticate('twitter'));
+
+app.get('/twitter/login', passport.authenticate('twitter'));
 
 app.get('/twitter/return', passport.authenticate('twitter', {
     failureRedirect: "/"
