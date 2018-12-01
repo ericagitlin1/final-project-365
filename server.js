@@ -8,12 +8,12 @@ const express = require('express'),
     passport = require("passport"), //used for logins and sessions
 	cookieParser = require("cookie-parser"),//used for logins and sessions
 	expressSession = require("express-session"),//used for logins and sessions
-    TwitterStrategy = require("passport-Twitter").Strategy,
+    TwitterStrategy = require("passport-twitter").Strategy,
     BetterMemoryStore = require('session-memory-store');
 
     let TWITTER_CONSUMER_KEY = "VU234SyhAAJW5EWZ19fKRcz2Q";
     let TWITTER_CONSUMER_SECRET = "TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3";
-    let callbackURL = "https://localhost:3000/twitter/return";
+    let callbackURL = "http://localhost:3000/twitter/return";
     
 
 app.use(express.static('resources'));
@@ -41,7 +41,7 @@ passport.use(new TwitterStrategy({
     callbackURL: callbackURL
 },
         function(token, tokenSecret, profile, done){
-            done(null, profile);
+                return done(null, profile);
         })
 );
 passport.serializeUser(function(user, callback){
@@ -71,14 +71,13 @@ app.use(
 	})
 );
 
-app.get('twitter/login', passport.authenticate('twitter'));
+app.get('/', passport.authenticate('twitter'));
 
 app.get('/twitter/return', passport.authenticate('twitter', {
-    failureRedirect: "/",
-    successRedirect: "/home"
+    failureRedirect: "/"
 }),
     function(req, res) {
-        res.redirect('/')
+        res.redirect('/home')
     });
 
 app.get('/logout', function(req, res) {
