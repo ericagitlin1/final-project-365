@@ -8,8 +8,7 @@ const express = require('express'),
     passport = require("passport"), //used for logins and sessions
 	cookieParser = require("cookie-parser"),//used for logins and sessions
 	expressSession = require("express-session"),//used for logins and sessions
-    TwitterStrategy = require("passport-twitter").Strategy,
-    BetterMemoryStore = require('session-memory-store');
+    TwitterStrategy = require("passport-twitter").Strategy;
 
     let TWITTER_CONSUMER_KEY = "VU234SyhAAJW5EWZ19fKRcz2Q";
     let TWITTER_CONSUMER_SECRET = "TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3";
@@ -71,9 +70,7 @@ app.use(
 	})
 );
 
-//app.get('/', passport.authenticate('twitter'));
-
-app.get('/twitter/login', passport.authenticate('twitter'));
+app.get('/', passport.authenticate('twitter'));
 
 app.get('/twitter/return', passport.authenticate('twitter', {
     failureRedirect: "/"

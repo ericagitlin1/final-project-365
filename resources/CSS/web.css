@@ -9,11 +9,5 @@ body {
     background-color: lightblue;
     min-height: 100%;
     margin: 0;
-
-    
+   
 }
-#ArticleTable{
-    border: 2px solid #cccccc;
-    margin: 5px;
-    }
-

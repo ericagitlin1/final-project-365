@@ -2,12 +2,11 @@ extends layout
 block navbar
     nav.navbar(role="navigation", aria-label="main navigation")
         .navbar-brand
-            h1.navbar-item NYTimes
+            img.navbar-item(src="/images/nyt_logo.png" Id="headline")
         //a.navbar-item(href="/") Login
         a.navbar-item(href="/home") Home
         a.navbar-item(href="/search") Search Articles
-        a.navbar-itiem(href="/logout") Logout
-        img( src="/images/headline.gif" Id="headline")
+        a.navbar-item(href="/logout") Logout
     .section
         .container
             block main-content
