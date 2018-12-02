@@ -6,13 +6,39 @@ html {
 body {
     min-height: 100%;
     margin: 0;
-    text-align: center;
-    padding-top:200px;
+    
 }
-form {
-    padding-top: 10px
-}
+
 .twitter_logo {
-    text-align:center;
+    text-align: center;
     max-height: 100px;
+    display: block;
+    margin: 0 auto;
+    
+}
+span {
+    text-align: center;
+    position: center;
+    width: 100%;
+}
+
+#twitterlink {
+    font-size: 35px;
+    font-weight: normal;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    text-align: center;
+}
+
+.nyt_logo {
+    text-align: left;
+    max-height: 300px;
+    position: relative;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom:150px;
 }

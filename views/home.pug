@@ -6,12 +6,12 @@ block main-content
         head
             meta(charset = "UTF-8")
             title Home
-        body
+            link(href="/CSS/home.css", rel="stylesheet")
+        body#body
             h1 View the Top Stories!
             #loadStories
                 form(action = "/home" method = "get")
-                    input(id="title" name="title" type="hidden" value="https://api.nytimes.com/svc/topstories/v2/home.json&api-key=f0a4f818f6884462aba9a8b7f18c3c42")
-            #StoryList   
+                    input(id="title" name="title" type="hidden" value="https://api.nytimes.com/svc/topstories/v2/home.json&api-key=f0a4f818f6884462aba9a8b7f18c3c42")   
             table#stories
         script(src='/js/submit_stories.js')
         
