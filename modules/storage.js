@@ -4,6 +4,8 @@ let obj = {};
 
 let articleInfo  = [];
 
+let tweet = "";
+
 
 obj.addArticleInfo = function(item){
     //Add all available article info
@@ -18,6 +20,11 @@ obj.getArticleInfo = function(){
 obj.clearArticleInfo = function(){
     //Clear the array storing article info
     articleInfo = [];
+}
+
+obj.setTweet = function(info){
+    //Store info to tweet
+    tweet = info;
 }
 
 module.exports = obj;

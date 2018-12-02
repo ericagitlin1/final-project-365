@@ -8,11 +8,16 @@ const express = require('express'),
     passport = require("passport"), //used for logins and sessions
 	cookieParser = require("cookie-parser"),//used for logins and sessions
 	expressSession = require("express-session"),//used for logins and sessions
-    TwitterStrategy = require("passport-twitter").Strategy;
+    TwitterStrategy = require("passport-twitter").Strategy,
+    Twit = require('twit');
 
-    let TWITTER_CONSUMER_KEY = "VU234SyhAAJW5EWZ19fKRcz2Q";
-    let TWITTER_CONSUMER_SECRET = "TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3";
-    let callbackURL = "http://localhost:3000/twitter/return";
+    //BetterMemoryStore = require('session-memory-store');
+
+    const TWITTER_CONSUMER_KEY = 'VU234SyhAAJW5EWZ19fKRcz2Q',
+        TWITTER_CONSUMER_SECRET = 'TUweDJbo7ua0aC66Rti92TtHH7CjxZYERSvxWfDNd5BGm8g2X3',
+        ACCESS_TOKEN = '1068734433656799232-5yeUmRcv4kRXBRvsSgi5At7EowrnZA',
+        ACCESS_TOKEN_SECRET = '0pJu5Evld7bNN0lSxljeVouqGcr46Vy3nkvHNKjf5RRaC',
+        callbackURL = "http://localhost:3000/twitter/return";
     
 
 app.use(express.static('resources'));
@@ -69,10 +74,29 @@ app.use(
 		extended: true
 	})
 );
+
+
+let tweetData = {status: "some text"};
+
 app.get('/', function(req, res) {
-    console.log("Accessing this page!")
     res.render('login');
 
+});
+
+app.post('/tweetInfo', function(req,res){
+    let tweet = {status: req.body.text};
+
+    let MakeATweet = new Twit({
+        consumer_key: TWITTER_CONSUMER_KEY, 
+        consumer_secret: TWITTER_CONSUMER_SECRET,
+        access_token: ACCESS_TOKEN,
+        access_token_secret: ACCESS_TOKEN_SECRET
+        }
+    );
+
+    MakeATweet.post('statuses/update', tweet , function(err, data, response) {
+        //console.log(data)
+      });
 });
 
 app.get('/twitter/login', passport.authenticate('twitter'));
@@ -89,11 +113,6 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 })
 
-
-//app.post("/login", passport.authenticate("local",{
-	//failureRedirect: "/",
-	//successRedirect: "/home"
-//}));
 
 app.get('/home', ensureAuthenticated, function(req,res){
     res.render('home');
@@ -112,16 +131,17 @@ app.post('/home', function(req, res) {
         },
       json: true}, 
 
-      function(err, response, body) {
-        for(let i=0; i<11;i++){
-            let x = body.results[i];
-            let storyObj = {
-                title: x.title,
-                abstract: x.abstract,
-                url: x.url
-            }
+        function(err, response, body) {
+            let stories = body.results;
+            stories.forEach(function(story){
+                let storyObj = {
+                    title: story.title,
+                    abstract: story.abstract,
+                    url: story.url
+                }
             storyModule.addStories(storyObj);
-        }
+    
+          });
         const storyList = storyModule.getStories();
         storyModule.clearStories();
         res.json(storyList);
@@ -163,6 +183,7 @@ app.post('/search', ensureAuthenticated, function(req, res) {
         articleModule.clearArticleInfo();  
     }); 
 });
+
 
 
 const server = app.listen(3000, function() {
