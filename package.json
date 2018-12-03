@@ -2,7 +2,7 @@
   "name": "final-project-365",
   "version": "1.0.0",
   "description": "CSC FINAL PROJECT",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -22,11 +22,9 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "pug": "^2.0.3",
     "request": "^2.88.0",
-    "session-memory-store": "^0.2.2",
     "twit": "^2.2.11"
   }
 }

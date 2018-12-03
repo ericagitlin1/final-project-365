@@ -32,12 +32,12 @@ const submitArticle = function(term) {
 					text = document.createTextNode(article.headline),
 					snippet = document.createTextNode(article.snippet);
 				
-				button.innerHTML = "Tweet";
-				button.id = "twitter_button_"+idInitializer[idArrayVariable];
-				tr.id = "row_"+idInitializer[idArrayVariable];
-				a.id = "url_"+idInitializer[idArrayVariable];
-				div2.id = "snippet_"+idInitializer[idArrayVariable];
-				td.id = "tweetColumn";
+				button.innerHTML = 'Tweet';
+				button.id = 'twitter_button_'+idInitializer[idArrayVariable];
+				tr.id = 'row_'+idInitializer[idArrayVariable];
+				a.id = 'url_'+idInitializer[idArrayVariable];
+				div2.id = 'snippet_'+idInitializer[idArrayVariable];
+				td.id = 'tweetColumn';
 
 
 				a.href = article.web_url; 
@@ -52,17 +52,17 @@ const submitArticle = function(term) {
 				idArrayVariable+=1;
 			});
 			
-		for(let y = 0;y<numofArticles;y++){
-			let buttonID = document.getElementById("twitter_button_"+idInitializer[y]);
-			buttonID.addEventListener('click', function(){
-				let tweet = document.getElementById("url_"+idInitializer[y]).href;
-				submitTweet(tweet);
-				document.getElementById("twitter_button_"+idInitializer[y]).innerHTML = "Tweeted";
+			for(let y = 0;y<numofArticles;y++){
+				let buttonID = document.getElementById('twitter_button_'+idInitializer[y]);
+				buttonID.addEventListener('click', function(){
+					let tweet = document.getElementById('url_'+idInitializer[y]).href;
+					submitTweet(tweet);
+					document.getElementById('twitter_button_'+idInitializer[y]).innerHTML = 'Tweeted';
 
-			});
-		}	
-	}
-});
+				});
+			}	
+		}
+	});
 	
 
 	xhrPost.addEventListener('error', function() {
@@ -79,16 +79,16 @@ const submitTweet = function(tweet) {
 	xhrPost.open('POST', '/tweetInfo');
 	xhrPost.setRequestHeader('Content-Type', 'application/json');
 	xhrPost.send(JSON.stringify({
-        text: tweet
-    }));
-}
+		text: tweet
+	}));
+};
 
 
-document.getElementById("SearchButton").addEventListener('click', function(evt){
+document.getElementById('SearchButton').addEventListener('click', function(evt){
 
 	evt.preventDefault();
-    let info = document.getElementById('SearchBox').value;
-	document.getElementById('SearchBox').value = "";
+	let info = document.getElementById('SearchBox').value;
+	document.getElementById('SearchBox').value = '';
 	submitArticle(info);
 
 });

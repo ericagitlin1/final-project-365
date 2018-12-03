@@ -9,9 +9,9 @@ const submitStories = function(title) {
 		console.log('Finished!');
 		console.log(xhrPost.response);
 
-        const stories = JSON.parse(xhrPost.response);
+		const stories = JSON.parse(xhrPost.response);
 
-        if (stories.length > 0) {
+		if (stories.length > 0) {
 			stories.forEach(function(story) {
 				const th = document.createElement('th'),
 					tr = document.createElement('tr'),
@@ -19,15 +19,15 @@ const submitStories = function(title) {
 					text = document.createTextNode(story.title),
 					abstract = document.createTextNode(story.abstract);
 
-                a.href = story.url;   
+				a.href = story.url;   
 				a.appendChild(text);
 				th.appendChild(a);
 				tr.appendChild(abstract);
 				document.getElementById('stories').appendChild(th);
 				document.getElementById('stories').appendChild(tr);
 			});
-        }
-    });
+		}
+	});
 
 	xhrPost.addEventListener('error', function() {
 		console.error('Error occured :(');
@@ -43,7 +43,7 @@ const submitStories = function(title) {
 	));
 };
 
-    let info = document.getElementById('title').value;
-	console.log(info);
-	document.getElementById('title').value = "";
-	submitStories(info);
+let info = document.getElementById('title').value;
+console.log(info);
+document.getElementById('title').value = '';
+submitStories(info);
